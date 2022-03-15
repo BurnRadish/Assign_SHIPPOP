@@ -1,7 +1,8 @@
 <template>
     <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Book</a>
+    <router-link class="navbar-brand" to="/home">Book</router-link>
+    <!-- toggle when half disply -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -37,4 +38,7 @@ export default {
 </script>
 
 <style scoped>
+.navB{
+  font-weight: "bold";
+}
 </style>
