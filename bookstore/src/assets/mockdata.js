@@ -1,0 +1,58 @@
+const data = [
+    {
+      id : 1,
+      name : "Little kitten",
+      description : "Just some cute text here.",
+      price : 1500.00,
+      discount : 100.00,
+      rating : 4,
+      quantity : 150,
+    },
+    {
+      id : 2,
+      name : "Little kitten2",
+      description : "Just some cute text here.",
+      price : 1500.00,
+      discount : 100.00,
+      rating : 4,
+      quantity : 0,
+    },
+    {
+      id : 3,
+      name : "Little kitten3",
+      description : "Just some cute text here.",
+      price : 1500.00,
+      discount : 100.00,
+      rating : 4,
+      quantity : 15,
+    },
+    {
+      id : 4,
+      name : "Little kitten4",
+      description : "Just some cute text here.",
+      price : 1500.00,
+      discount : 100.00,
+      rating : 4,
+      quantity : 15,
+    },
+    {
+      id : 5,
+      name : "Little kitten5",
+      description : "Just some cute text here.",
+      price : 1500.00,
+      discount : 100.00,
+      rating : 4,
+      quantity : 15,
+    },
+    {
+      id : 6,
+      name : "Little kitten6",
+      description : "Just some cute text here.",
+      price : 1500.00,
+      discount : 100.00,
+      rating : 4,
+      quantity : 15,
+    },
+]
+
+export default data;
