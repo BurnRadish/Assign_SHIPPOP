@@ -2,7 +2,9 @@
   <div class="container p-2">
     <Carousal></Carousal>
     <br />
-    <Slider></Slider>
+    <Slider title="สินค้าขายดี"></Slider>
+    <br>
+    <Slider title="สินค้าแนะนำ"></Slider>
   </div>
 </template>
 
