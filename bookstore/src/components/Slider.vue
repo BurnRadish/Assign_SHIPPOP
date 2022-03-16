@@ -115,7 +115,7 @@ export default {
 </script>
 
 <style scoped>
-.card-img-top{
+.card-img-top {
   border-radius: 10px;
 }
 
