@@ -3,14 +3,14 @@
     <Carousal></Carousal>
     <br />
     <Slider title="สินค้าขายดี"></Slider>
-    <br>
+    <br />
     <Slider title="สินค้าแนะนำ"></Slider>
   </div>
 </template>
 
 <script>
 import Carousal from "../components/Carousal.vue";
-import Slider from "../components/Slider.vue"
+import Slider from "../components/Slider.vue";
 
 export default {
   name: "Home",
@@ -18,9 +18,16 @@ export default {
     Carousal,
     Slider,
   },
+  created(){
+    if(localStorage.getItem("Cart") != null){
+      console.log("Cart already created")
+    }
+    else{
+       localStorage.setItem("Cart", JSON.stringify([]))
+    }
+  },
   data() {
-    return {
-    };
+    return {};
   },
 };
 </script>
