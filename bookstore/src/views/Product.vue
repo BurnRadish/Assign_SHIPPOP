@@ -28,9 +28,9 @@
             <div class="col">
               <p>
                 &nbsp;<b class="price-p">ราคา</b>&nbsp;<b class="product-price"
-                  >THB{{ this.product.price }}</b
-                >&nbsp;<b class="text-line"
                   >THB{{ this.product.price - this.product.discount }}</b
+                >&nbsp;<b class="text-line"
+                  >THB{{ this.product.price }}</b
                 >
               </p>
             </div>

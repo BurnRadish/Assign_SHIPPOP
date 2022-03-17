@@ -154,12 +154,13 @@ export default {
   methods: {
     updateNavCart() {
       this.navCart = JSON.parse(localStorage.getItem("Cart"));
-      
+      let sum = 0;
       for(var i=0; i < this.navCart.length; i++){
-        let sum = 0;
         sum += this.navCart[i].total
-        this.total = sum
       }
+      this.total = sum
+
+      console.log(this.total)
     },
     toCart(){
       this.$router.push({ path: '/cart' });
