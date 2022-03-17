@@ -96,7 +96,7 @@
             >
               <li>
                 <h5>ตระกร้าของฉัน</h5>
-                <p>สินค้าในตระกร้า</p>
+                <p>{{this.navCart.length}} สินค้าในตระกร้า</p>
                 <button class="btn btn-outline-primary rounded-pill" @click="toCart()" style="width: 80%;">
                   ดูหรือแก้ไขตระกร้าของฉัน
                 </button>
@@ -154,9 +154,10 @@ export default {
   methods: {
     updateNavCart() {
       this.navCart = JSON.parse(localStorage.getItem("Cart"));
+      console.log(this.navCart)
       let sum = 0;
       for(var i=0; i < this.navCart.length; i++){
-        sum += this.navCart[i].total
+        sum += (this.navCart[i].price - this.navCart[i].discount)*this.navCart[i].amounts
       }
       this.total = sum
 
