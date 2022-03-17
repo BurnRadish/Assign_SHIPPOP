@@ -53,6 +53,7 @@
                             function plus() {
                               item.amounts++;
                               updateLocal();
+                              setTotal();
                             }
                           "
                         >
@@ -69,6 +70,7 @@
                                 item.amounts = 0;
                               }
                               updateLocal();
+                              setTotal();
                             }
                           "
                         >
@@ -121,7 +123,40 @@
           </div>
         </div>
       </div>
-      <div class="col-4" style="background-color: aqua">Test2</div>
+      <div class="col-4 total-section">
+        <h3 style="margin-bottom: 20px;"><b>สรุปคำสั่งซื้อ</b></h3>
+        <div class="row">
+          <div class="col">
+            <p><b>ยอดรวม</b></p>
+          </div>
+          <div class="col col-right" >
+            <p><b>THB{{this.totalAmounts}}</b></p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p><b>ค่าส่ง</b></p>
+          </div>
+          <div class="col col-right" >
+            <p><b>THB{{this.shippingCost}}</b></p>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col">
+            <p><b>ยอดสุทธิ</b></p>
+          </div>
+          <div class="col col-right" >
+            <h5><b>THB{{this.totalWithShipping}}</b></h5>
+          </div>
+        </div>
+        <div class="text-center">
+          <button type="button" class="btn btn-primary btn-lg rounded-pill" style="width: 80%">
+          ไปหน้าชำระเงิน
+        </button>
+        </div>
+        
+      </div>
     </div>
   </div>
 </template>
@@ -131,16 +166,23 @@ export default {
   name: "Cart",
   components: {},
   created() {
-    this.cart = JSON.parse(localStorage.getItem("Cart"));
+    this.setCart();
     console.log(this.cart);
+    console.log(this.totalAmounts)
   },
   data() {
     return {
       cart: [],
       totalAmounts: 0,
+      shippingCost: 1,
+      totalWithShipping: 0,
     };
   },
   methods: {
+    setCart(){
+      this.cart = JSON.parse(localStorage.getItem("Cart"));
+      this.setTotal();
+    },
     clearCart() {
       (this.cart = []), localStorage.setItem("Cart", JSON.stringify([]));
     },
@@ -154,7 +196,17 @@ export default {
         var newArr = this.cart.filter((product) => product.id != id)
         this.cart = newArr;
         this.updateLocal();
+        this.setTotal()
     },
+    setTotal(){
+      console.log("Call total")
+      let sum = 0;
+      for(var i=0; i < this.cart.length; i++){
+        sum += (this.cart[i].price-this.cart[i].discount)*this.cart[i].amounts;
+      }
+      this.totalAmounts = sum;
+      this.totalWithShipping = this.totalAmounts + this.shippingCost;
+    }
   },
 };
 </script>
@@ -163,4 +215,15 @@ export default {
 .border-bottom {
   border-bottom: 1px solid;
 }
+
+.col-right{
+  text-align: right;
+}
+
+.total-section{
+  background-color: rgb(242, 255, 255);
+  padding: 20px;
+  height: 100%;
+}
+
 </style>
