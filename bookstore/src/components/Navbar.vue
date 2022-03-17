@@ -97,7 +97,7 @@
               <li>
                 <h5>ตระกร้าของฉัน</h5>
                 <p>สินค้าในตระกร้า</p>
-                <button class="btn btn-outline-primary rounded-pill" @click="toCart()">
+                <button class="btn btn-outline-primary rounded-pill" @click="toCart()" style="width: 80%;">
                   ดูหรือแก้ไขตระกร้าของฉัน
                 </button>
               </li>
@@ -124,7 +124,8 @@
                 <hr class="dropdown-divider" />
               </li>
               <li>
-                <button class="btn btn-primary rounded-pill">
+                <p><b class="total-cart">ยอดรวม</b> : <b class="total-bold">THB{{this.total}}</b></p>
+                <button class="btn btn-primary rounded-pill" style="width: 80%;">
                   ไปหน้าชำระเงิน
                 </button>
               </li>
@@ -147,11 +148,18 @@ export default {
     return {
       searchToggle: false,
       navCart: [],
+      total: 0,
     };
   },
   methods: {
     updateNavCart() {
       this.navCart = JSON.parse(localStorage.getItem("Cart"));
+      
+      for(var i=0; i < this.navCart.length; i++){
+        let sum = 0;
+        sum += this.navCart[i].total
+        this.total = sum
+      }
     },
     toCart(){
       this.$router.push({ path: '/cart' });
@@ -161,6 +169,15 @@ export default {
 </script>
 
 <style scoped>
+
+.total-cart{
+  color: rgb(195, 195, 195);
+}
+
+.total-bold{
+  font-size: 24px;
+}
+
 .dropdown-toggle::after {
   content: none;
 }
