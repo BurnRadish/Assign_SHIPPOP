@@ -200,6 +200,13 @@ export default {
     this.findProduct(this.id);
     this.setCart();
   },
+  watch:{
+    $route (to, from){
+      console.log(to.path)
+      console.log(from.path)
+        location.reload();
+    }
+  },
   methods: {
     findProduct(id) {
       this.product = data.find((product) => product.id == id);

@@ -67,7 +67,6 @@ export default {
   methods: {
     viewProduct(product) {
       this.$router.push({ path: `/product/${product}` });
-      location.reload();
     },
     addToCart(product) {
       console.log(product)
