@@ -85,6 +85,7 @@
               role="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
+              @click="updateNavCart()"
             >
               <i class="bi bi-cart"></i>
             </div>
@@ -96,13 +97,32 @@
               <li>
                 <h5>ตระกร้าของฉัน</h5>
                 <p>สินค้าในตระกร้า</p>
-                <button class="btn btn-outline-primary rounded-pill">
+                <button class="btn btn-outline-primary rounded-pill" @click="toCart()">
                   ดูหรือแก้ไขตระกร้าของฉัน
                 </button>
               </li>
               <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider" /></li>
+              <li v-for="item in navCart" :key="item.id">
+                <div class="row">
+                  <div class="col-10">
+                    {{ item.amounts }} x
+                    <img
+                      src="https://placekitten.com/50/70"
+                      alt=""
+                      style="margin: 5px"
+                    />
+                    <b>
+                      {{item.name}}
+                    </b>
+                    
+                  </div>
+                  <div class="col-2">
+                    <i class="bi bi-x-circle"></i>
+                    <i class="bi bi-pencil-square"></i>
+                  </div>
+                </div>
+                <hr class="dropdown-divider" />
+              </li>
               <li>
                 <button class="btn btn-primary rounded-pill">
                   ไปหน้าชำระเงิน
@@ -126,7 +146,16 @@ export default {
   data() {
     return {
       searchToggle: false,
+      navCart: [],
     };
+  },
+  methods: {
+    updateNavCart() {
+      this.navCart = JSON.parse(localStorage.getItem("Cart"));
+    },
+    toCart(){
+      this.$router.push({ path: '/cart' });
+    }
   },
 };
 </script>

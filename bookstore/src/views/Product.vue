@@ -206,7 +206,7 @@ export default {
       console.log(this.product);
     },
     setCart() {
-      this.cart = JSON.parse(localStorage.getItem("Cart"));
+      this.Cart = JSON.parse(localStorage.getItem("Cart"));
     },
     addProduct(quantity) {
       if (quantity == 0) {
@@ -219,51 +219,47 @@ export default {
         this.amount++;
       }
     },
-    addToCart(){
+    addToCart() {
       this.setCart();
       let counter = 0;
 
-      if(this.amount == 0){
-        alert('Please enter product amounts')
-      }else{
-        if(this.Cart.length > 0){
-        for(var i=0; i < this.Cart.length; i++){
-          if (this.Cart[i].id == this.product.id) {
-              alert("--Add more item--")
+      if (this.amount == 0) {
+        alert("Please enter product amounts");
+      } else {
+        if (this.Cart.length > 0) {
+          for (var i = 0; i < this.Cart.length; i++) {
+            if (this.Cart[i].id == this.product.id) {
+              alert("--Add more item--");
               this.Cart[i].amounts += this.amount;
               localStorage.setItem("Cart", JSON.stringify(this.Cart));
               counter++;
             }
+          }
+
+          if (counter == 0) {
+            alert("--Add new item--");
+            let newItem = {
+              id: this.product.id,
+              name: this.product.name,
+              price: this.product.price,
+              amounts: this.amount,
+            };
+            this.Cart.push(newItem);
+            localStorage.setItem("Cart", JSON.stringify(this.Cart));
+          }
+        } else {
+          alert("--Add first item--");
+          let addItem = {
+            id: this.product.id,
+            name: this.product.name,
+            price: this.product.price,
+            amounts: this.amount,
+          };
+          this.Cart.push(addItem);
+          localStorage.setItem("Cart", JSON.stringify(this.Cart));
         }
-
-        if(counter == 0){
-        alert("--Add new item--")
-        let newItem = {
-        id: this.product.id,
-        name: this.product.name,
-        price: this.product.price,
-        amounts: this.amount,
-        };
-        this.Cart.push(newItem)
-        localStorage.setItem("Cart", JSON.stringify(this.Cart))
       }
-      }else{
-        alert("--Add first item--")
-        let addItem = {
-        id: this.product.id,
-        name: this.product.name,
-        price: this.product.price,
-        amounts: this.amount,
-        };
-        this.Cart.push(addItem);
-        localStorage.setItem("Cart", JSON.stringify(this.Cart));
-      }
-      }
-
-
-      
-      
-    }
+    },
   },
 };
 </script>
