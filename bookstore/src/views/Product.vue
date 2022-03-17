@@ -192,7 +192,7 @@ export default {
       aActive: false,
       imgActive: true,
       currentImg: "https://placekitten.com/300/500",
-      amount: 0,
+      amount: 1,
       Cart: [],
     };
   },
@@ -222,10 +222,14 @@ export default {
     addToCart(){
       this.setCart();
       let counter = 0;
-      if(this.Cart.length > 0){
+
+      if(this.amount == 0){
+        alert('Please enter product amounts')
+      }else{
+        if(this.Cart.length > 0){
         for(var i=0; i < this.Cart.length; i++){
           if (this.Cart[i].id == this.product.id) {
-              console.log("--Add more item--")
+              alert("--Add more item--")
               this.Cart[i].amounts += this.amount;
               localStorage.setItem("Cart", JSON.stringify(this.Cart));
               counter++;
@@ -233,7 +237,7 @@ export default {
         }
 
         if(counter == 0){
-        console.log("--Add new item--")
+        alert("--Add new item--")
         let newItem = {
         id: this.product.id,
         name: this.product.name,
@@ -244,7 +248,7 @@ export default {
         localStorage.setItem("Cart", JSON.stringify(this.Cart))
       }
       }else{
-        console.log("--Add first item--")
+        alert("--Add first item--")
         let addItem = {
         id: this.product.id,
         name: this.product.name,
@@ -254,6 +258,9 @@ export default {
         this.Cart.push(addItem);
         localStorage.setItem("Cart", JSON.stringify(this.Cart));
       }
+      }
+
+
       
       
     }
