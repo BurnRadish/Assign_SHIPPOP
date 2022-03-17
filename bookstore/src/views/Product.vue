@@ -231,6 +231,7 @@ export default {
             if (this.Cart[i].id == this.product.id) {
               alert("--Add more item--");
               this.Cart[i].amounts += this.amount;
+              this.Cart[i].total += (this.product.price-this.product.discount)*this.amount;
               localStorage.setItem("Cart", JSON.stringify(this.Cart));
               counter++;
             }
@@ -242,6 +243,8 @@ export default {
               id: this.product.id,
               name: this.product.name,
               price: this.product.price,
+              discount : this.product.discount,
+              total: (this.product.price-this.product.discount)*this.amount,
               amounts: this.amount,
             };
             this.Cart.push(newItem);
@@ -253,6 +256,8 @@ export default {
             id: this.product.id,
             name: this.product.name,
             price: this.product.price,
+            discount : this.product.discount,
+            total: (this.product.price-this.product.discount)*this.amount,
             amounts: this.amount,
           };
           this.Cart.push(addItem);
