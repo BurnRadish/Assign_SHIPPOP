@@ -7,7 +7,6 @@
         class="card border-light mb-3 card-pointer"
         v-for="(data, index) in mockProduct"
         :key="{ index }"
-        @click="viewProduct(data.id)"
       >
         <div v-if="data.quantity != 0">
           <h6 class="instock">
@@ -23,8 +22,10 @@
           src="https://placekitten.com/1000/600"
           class="card-img-top"
           alt="1"
+          @click="viewProduct(data.id)"
         />
         <div class="card-body">
+          <div @click="viewProduct(data.id)">
           <div>
             <h6>
               <i
@@ -41,7 +42,8 @@
           <br />
           <h6 class="card-text">THB{{ data.price }}</h6>
           <h5 class="card-text">THB{{ data.price - data.discount }}</h5>
-          <button href="#" class="btn btn-outline-primary cart-btn">
+          </div>
+          <button href="#" class="btn btn-outline-primary cart-btn" @click="addToCart(data)">
             <i class="bi bi-cart"></i> Add to cart
           </button>
         </div>
@@ -64,12 +66,57 @@ export default {
   },
   methods: {
     viewProduct(product) {
-      this.$router.push("/product/" + product);
+      this.$router.push({ path: `/product/${product}` });
+      location.reload();
+    },
+    addToCart(product) {
+      console.log(product)
+      this.Cart = JSON.parse(localStorage.getItem('Cart'))
+      let counter = 0;
+
+        if (this.Cart.length > 0) {
+          for (var i = 0; i < this.Cart.length; i++) {
+            if (this.Cart[i].id == product.id) {
+              alert("--Add more item--");
+              this.Cart[i].amounts++;
+              localStorage.setItem("Cart", JSON.stringify(this.Cart));
+              counter++;
+            }
+          }
+
+          if (counter == 0) {
+            alert("--Add new item--");
+            let newItem = {
+              id: product.id,
+              name: product.name,
+              price: product.price,
+              discount : product.discount,
+              total: (product.price-product.discount),
+              amounts: 1,
+            };
+            this.Cart.push(newItem);
+            localStorage.setItem("Cart", JSON.stringify(this.Cart));
+          }
+        } else {
+          alert("--Add first item--");
+          let addItem = {
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            discount : product.discount,
+            total: (product.price-product.discount),
+            amounts: 1,
+          };
+          this.Cart.push(addItem);
+          localStorage.setItem("Cart", JSON.stringify(this.Cart));
+        }
+      
     },
   },
   data() {
     return {
       mockProduct: mdata,
+      Cart: [],
       settings: {
         arrows: true,
         dots: true,
