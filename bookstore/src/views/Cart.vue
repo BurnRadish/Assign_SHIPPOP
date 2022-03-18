@@ -151,7 +151,7 @@
           </div>
         </div>
         <div class="text-center">
-          <button type="button" class="btn btn-primary btn-lg rounded-pill" style="width: 80%">
+          <button type="button" class="btn btn-primary btn-lg rounded-pill" style="width: 80%" @click="toCheckout()">
           ไปหน้าชำระเงิน
         </button>
         </div>
@@ -188,6 +188,9 @@ export default {
     },
     toHome() {
       this.$router.push({ path: "/" });
+    },
+    toCheckout(){
+      this.$router.push({ path: "/checkout" });
     },
     updateLocal() {
       localStorage.setItem("Cart", JSON.stringify(this.cart));
