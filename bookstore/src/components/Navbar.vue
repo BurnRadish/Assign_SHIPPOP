@@ -125,7 +125,7 @@
               </li>
               <li>
                 <p><b class="total-cart">ยอดรวม</b> : <b class="total-bold">THB{{this.total}}</b></p>
-                <button class="btn btn-primary rounded-pill" style="width: 80%;">
+                <button class="btn btn-primary rounded-pill" style="width: 80%;" @click="toCheckout()">
                   ไปหน้าชำระเงิน
                 </button>
               </li>
@@ -165,7 +165,10 @@ export default {
     },
     toCart(){
       this.$router.push({ path: '/cart' });
-    }
+    },
+    toCheckout(){
+      this.$router.push({ path: "/checkout" });
+    },
   },
 };
 </script>
