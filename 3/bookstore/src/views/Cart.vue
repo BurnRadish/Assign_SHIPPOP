@@ -188,6 +188,10 @@ export default {
     },
     clearCart() {
       (this.cart = []), localStorage.setItem("Cart", JSON.stringify([]));
+      Swal.fire({
+                icon: "success",
+                title: "ลบสินค้าออกจากตระกร้าทั้งหมดแล้ว",
+        });
     },
     toHome() {
       this.$router.push({ path: "/" });
