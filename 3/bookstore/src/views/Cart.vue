@@ -64,10 +64,10 @@
                           class="btn btn-light"
                           @click="
                             function minus() {
-                              if (item.amounts > 0) {
+                              if (item.amounts > 1) {
                                 item.amounts--;
                               } else {
-                                item.amounts = 0;
+                                item.amounts = 1;
                               }
                               updateLocal();
                               setTotal();
@@ -162,6 +162,9 @@
 </template>
 
 <script>
+
+import Swal from 'sweetalert2'
+
 export default {
   name: "Cart",
   components: {},
@@ -195,8 +198,14 @@ export default {
     updateLocal() {
       localStorage.setItem("Cart", JSON.stringify(this.cart));
     },
-    removeFromCart(id) {
-        var newArr = this.cart.filter((product) => product.id != id)
+    removeFromCart(productId) {
+      const result = this.cart.find( ({ id }) => id === productId );
+        Swal.fire({
+                icon: "success",
+                title: "นำ "+ result.name +" ออกจากตระกร้าแล้ว",
+
+        });
+        var newArr = this.cart.filter((product) => product.id != productId)
         this.cart = newArr;
         this.updateLocal();
         this.setTotal()

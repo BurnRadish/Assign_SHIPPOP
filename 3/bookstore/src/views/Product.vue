@@ -29,9 +29,7 @@
               <p>
                 &nbsp;<b class="price-p">ราคา</b>&nbsp;<b class="product-price"
                   >THB{{ this.product.price - this.product.discount }}</b
-                >&nbsp;<b class="text-line"
-                  >THB{{ this.product.price }}</b
-                >
+                >&nbsp;<b class="text-line">THB{{ this.product.price }}</b>
               </p>
             </div>
           </div>
@@ -179,6 +177,7 @@
 <script>
 import data from "../assets/mockdata";
 import Slider from "../components/Slider.vue";
+import Swal from "sweetalert2";
 
 export default {
   name: "Product",
@@ -200,12 +199,12 @@ export default {
     this.findProduct(this.id);
     this.setCart();
   },
-  watch:{
-    $route (to, from){
-      console.log(to.path)
-      console.log(from.path)
-        location.reload();
-    }
+  watch: {
+    $route(to, from) {
+      console.log(to.path);
+      console.log(from.path);
+      location.reload();
+    },
   },
   methods: {
     findProduct(id) {
@@ -231,44 +230,60 @@ export default {
       let counter = 0;
 
       if (this.amount == 0) {
-        alert("Please enter product amounts");
+        Swal.fire({
+                icon: "warning",
+                title: "กรุณาใส่จำนวนสินค้าก่อนทำการเพิ่มสินค้าลงตระกร้า",
+              });
       } else {
         if (this.Cart.length > 0) {
           for (var i = 0; i < this.Cart.length; i++) {
             if (this.Cart[i].id == this.product.id) {
-              alert("--Add more item--");
               this.Cart[i].amounts += this.amount;
-              this.Cart[i].total += (this.product.price-this.product.discount)*this.amount;
+              this.Cart[i].total +=
+                (this.product.price - this.product.discount) * this.amount;
               localStorage.setItem("Cart", JSON.stringify(this.Cart));
               counter++;
+              Swal.fire({
+                icon: "success",
+                title: "เพิ่ม " + this.Cart[i].name + " จำนวน " + this.amount + " ชิ้น" ,
+                text: this.Cart[i].name + " มีจำนวนทั้งหมดในตระกร้า " + this.Cart[i].amounts + " ชิ้น",
+              });
             }
           }
 
           if (counter == 0) {
-            alert("--Add new item--");
             let newItem = {
               id: this.product.id,
               name: this.product.name,
               price: this.product.price,
-              discount : this.product.discount,
-              total: (this.product.price-this.product.discount)*this.amount,
+              discount: this.product.discount,
+              total: (this.product.price - this.product.discount) * this.amount,
               amounts: this.amount,
             };
             this.Cart.push(newItem);
             localStorage.setItem("Cart", JSON.stringify(this.Cart));
+            Swal.fire({
+                icon: "success",
+                title: "เพิ่มสินค้าสำเร็จแล้ว",
+                text: "เพิ่ม " + this.product.name + " ลงตระกร้าแล้ว",
+              });
           }
         } else {
-          alert("--Add first item--");
           let addItem = {
             id: this.product.id,
             name: this.product.name,
             price: this.product.price,
-            discount : this.product.discount,
-            total: (this.product.price-this.product.discount)*this.amount,
+            discount: this.product.discount,
+            total: (this.product.price - this.product.discount) * this.amount,
             amounts: this.amount,
           };
           this.Cart.push(addItem);
           localStorage.setItem("Cart", JSON.stringify(this.Cart));
+          Swal.fire({
+                icon: "success",
+                title: "เพิ่มสินค้าสำเร็จแล้ว",
+                text: "เพิ่ม " + this.product.name + " ลงตระกร้าแล้ว",
+              });
         }
       }
     },

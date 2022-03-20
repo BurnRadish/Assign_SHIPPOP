@@ -55,6 +55,7 @@
 <script>
 import VueSlickCarousel from "vue-slick-carousel";
 import mdata from "../assets/mockdata";
+import Swal from "sweetalert2";
 
 export default {
   name: "Slider",
@@ -76,15 +77,18 @@ export default {
         if (this.Cart.length > 0) {
           for (var i = 0; i < this.Cart.length; i++) {
             if (this.Cart[i].id == product.id) {
-              alert("--Add more item--");
               this.Cart[i].amounts++;
+              Swal.fire({
+                icon: "success",
+                title: "เพิ่ม " + this.Cart[i].name + " จำนวน 1 ชิ้น" ,
+                text: this.Cart[i].name + " มีจำนวนทั้งหมดในตระกร้า " + this.Cart[i].amounts + " ชิ้น",
+              });
               localStorage.setItem("Cart", JSON.stringify(this.Cart));
               counter++;
             }
           }
 
           if (counter == 0) {
-            alert("--Add new item--");
             let newItem = {
               id: product.id,
               name: product.name,
@@ -94,10 +98,14 @@ export default {
               amounts: 1,
             };
             this.Cart.push(newItem);
+            Swal.fire({
+                icon: "success",
+                title: "เพิ่มสินค้าสำเร็จแล้ว",
+                text: "เพิ่ม " + product.name + " ลงตระกร้าแล้ว",
+              });
             localStorage.setItem("Cart", JSON.stringify(this.Cart));
           }
         } else {
-          alert("--Add first item--");
           let addItem = {
             id: product.id,
             name: product.name,
@@ -107,6 +115,11 @@ export default {
             amounts: 1,
           };
           this.Cart.push(addItem);
+          Swal.fire({
+                icon: "success",
+                title: "เพิ่มสินค้าสำเร็จแล้ว",
+                text: "เพิ่ม " + product.name + " ลงตระกร้าแล้ว",
+              });
           localStorage.setItem("Cart", JSON.stringify(this.Cart));
         }
       
